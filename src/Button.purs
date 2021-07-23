@@ -7,13 +7,13 @@ import Prelude
 import Halogen as H
 import Halogen.HTML as HH
 import Halogen.HTML.Events as HE
-import Halogen.HTML.Properties as HP
+-- import Halogen.HTML.Properties as HP
 
 type State =
-  { enabled :: Boolean }
+  { counter :: Int }
 
 data Action =
-  Toggle
+  Increment | Decrement
 
 component :: forall q i o m. H.Component q i o m
 component =
@@ -24,20 +24,19 @@ component =
     }
 
 initialState :: forall i. i -> State
-initialState _ = { enabled: false }
+initialState _ = { counter: 0 }
 
 render :: forall m. State -> H.ComponentHTML Action () m
 render state =
-  let
-      label = if state.enabled then "On" else "Off"
-   in
-   HH.button
-     [ HP.title label
-     , HE.onClick \_ -> Toggle
-     ]
-     [ HH.text label ]
+   HH.div_
+    [ HH.button [ HE.onClick \_ -> Increment  ] [ HH.text "+" ]
+    , HH.button [ HE.onClick \_ -> Decrement  ] [ HH.text "-" ]
+    , HH.text (show state.counter)
+    ]
 
 handleAction :: forall o m. Action -> H.HalogenM State Action () o m Unit
 handleAction = case _ of
-  Toggle ->
-    H.modify_ \st -> st { enabled = not st.enabled }
+  Increment ->
+    H.modify_ \st -> st { counter = st.counter + 1 }
+  Decrement ->
+    H.modify_ \st -> st { counter = st.counter - 1 }
