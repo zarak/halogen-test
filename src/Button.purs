@@ -23,6 +23,7 @@ component =
     , eval: H.mkEval $ H.defaultEval { handleAction = handleAction }
     }
 
+-- Leave the type variable open because state isn't used
 initialState :: forall i. i -> State
 initialState _ = { counter: 0 }
 
@@ -34,6 +35,10 @@ render state =
     , HH.text (show state.counter)
     ]
 
+-- type () means there are no child components
+-- o type param is used when communicating with parent component 
+-- m type is a monad
+-- modify_ (with the underscore) updates the state without returning it
 handleAction :: forall o m. Action -> H.HalogenM State Action () o m Unit
 handleAction = case _ of
   Increment ->
