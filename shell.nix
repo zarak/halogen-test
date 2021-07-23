@@ -32,6 +32,7 @@ let
              effect
              lists
              random
+             affjax
              halogen
              prelude
            ];
