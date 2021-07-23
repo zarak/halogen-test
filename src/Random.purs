@@ -16,6 +16,7 @@ type State = Maybe Boolean
 data Action =
   Regenerate
 
+-- Add a MonadEffect constraint to m
 component :: forall query input output m. MonadEffect m => H.Component query input output m
 component =
   H.mkComponent
@@ -23,7 +24,6 @@ component =
   , render
   , eval: H.mkEval $ H.defaultEval { handleAction = handleAction }
   }
-
 
 initialState :: forall input. input -> State
 initialState _ = Nothing
@@ -42,6 +42,7 @@ render state = do
         [ HH.text "Check weather" ]
     ]
 
+-- Add a MonadEffect constraint to m
 handleAction :: forall output m. MonadEffect m => Action -> H.HalogenM State Action () output m Unit
 handleAction = case _ of
   Regenerate -> do
