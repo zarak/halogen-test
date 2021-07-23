@@ -31,6 +31,7 @@ let
            [ console
              effect
              lists
+             random
              halogen
              prelude
            ];
