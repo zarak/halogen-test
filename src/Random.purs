@@ -5,14 +5,11 @@ module Random
 import Prelude
 
 import Data.Maybe (Maybe(..), maybe)
-import Effect (Effect)
 import Effect.Class (class MonadEffect)
 import Effect.Random (randomBool)
 import Halogen as H
-import Halogen.Aff (awaitBody, runHalogenAff)
 import Halogen.HTML as HH
 import Halogen.HTML.Events as HE
-import Halogen.VDom.Driver (runUI)
 
 type State = Maybe Boolean
 
